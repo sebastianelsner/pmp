@@ -7,7 +7,7 @@ from pmp.settings import APPLICATION_NAME, Settings, settings, dlgSpecs
 class OptionDialog(PropertyDialog):
     def __init__(self, ganttWidget=None, parent = None):
         self.ganttWidget = ganttWidget
-        super(OptionDialog, self).__init__(APPLICATION_NAME+":オプション設定", parent)
+        super(OptionDialog, self).__init__(APPLICATION_NAME+":OptionenConfig", parent)
         self.setProperties(dlgSpecs, settings)
 
     def save(self):

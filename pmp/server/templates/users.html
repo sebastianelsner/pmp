@@ -4,7 +4,7 @@
 {% block optionalmenu %}
     {% if session.logged_in %}
         <li><a href="/add_user">ユーザ追加</a></li>
-        <li><a href="{{url_for('edit_user', userid=g.user)}}">ユーザ設定</a></li>
+        <li><a href="{{url_for('edit_user', userid=g.user)}}">ユーザConfig</a></li>
     {% endif %}
 {% endblock %}
 {% block content %}

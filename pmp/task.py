@@ -7,7 +7,7 @@ from .util import s2dt, dt
 class Task(object):
     """Taskクラス"""
 
-    def __init__(self, name='(未定)', start=None, end=None, pv=0, ev=0, pic=''):
+    def __init__(self, name='Undefined', start=None, end=None, pv=0, ev=0, pic=''):
         self._pv = 0
         self._ev = 0
         #------------------------

@@ -22,7 +22,7 @@ def _urlget(url):
     return page_text
 
 class TaskModel(Task):
-    def __init__(self, name='未設定', start=dt.today(), end=None, pv=0, ev=0):
+    def __init__(self, name='未Config', start=dt.today(), end=None, pv=0, ev=0):
         if end is None:
             end = start+timedelta(days=100)
         super(TaskModel, self).__init__(name, start, end, pv, ev)

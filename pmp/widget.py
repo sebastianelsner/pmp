@@ -69,7 +69,7 @@ class CalendarDrawingInfo():
         #----
         date = start
         self.xs = [[rect.left()], [rect.left()], [rect.left()], [rect.left()]]
-        self.ts = [[str(date.year)+"年"], [str(date.month)+"月"], [''], [str(date.day)]]
+        self.ts = [[str(date.year)+"Jahr"], [str(date.month)+"Monat"], [''], [str(date.day)]]
         self.bs = [ [boundingRect(self.ts[CALENDAR.YEAR][0])],
                     [boundingRect(self.ts[CALENDAR.MONTH][0])],
                     [boundingRect(self.ts[CALENDAR.DAY][0])],
@@ -93,12 +93,12 @@ class CalendarDrawingInfo():
                 self.ts[CALENDAR.WEEK].append(text)
                 self.bs[CALENDAR.WEEK].append(boundingRect(text))
             if pdate.month != date.month:
-                text = str(date.month)+"月"
+                text = str(date.month)+"Monat"
                 self.xs[CALENDAR.MONTH].append(x)
                 self.ts[CALENDAR.MONTH].append(text)
                 self.bs[CALENDAR.MONTH].append(boundingRect(text))
             if pdate.year != date.year:
-                text = str(date.year)+"年"
+                text = str(date.year)+"Jahr"
                 self.xs[CALENDAR.YEAR].append(x)
                 self.ts[CALENDAR.YEAR].append(text)
                 self.bs[CALENDAR.YEAR].append(boundingRect(text))
@@ -203,7 +203,7 @@ class GanttHeaderView(QtGui.QHeaderView):
         painter.restore()
 
 class ChartScrollBar(QtGui.QScrollBar):
-    """チャート部用のスクロールバーを作成する"""
+    """chart部用のスクロールバーを作成する"""
 
     def __init__(self, ganttWidget):
         super(ChartScrollBar, self).__init__(Qt.Horizontal, ganttWidget)
@@ -211,7 +211,7 @@ class ChartScrollBar(QtGui.QScrollBar):
         self.valueChanged.connect(self.adjustScrollPosition)
 
     def adjustSectionSize(self):
-        """チャート部を、Widgetの端まで広げる"""
+        """chart部を、Widgetの端まで広げる"""
         header = self.ganttWidget.header()
         if header is None:
             return
@@ -224,7 +224,7 @@ class ChartScrollBar(QtGui.QScrollBar):
         self._adjustScrollBar()
 
     def _adjustScrollBar(self):
-        """スクロールバーの最大値を設定、必要あれば現在値も修正する"""
+        """スクロールバーの最大値をConfig、必要あれば現在値も修正する"""
         value = self.ganttWidget.preferableWidth() - self.ganttWidget.header().sectionSize(COLUMN_CHART)
         self.setMaximum(max(0, value))
         #print("_adjustScrollBar(%d -> %d)" % (value, self.maximum()))
@@ -260,6 +260,10 @@ class Widget_(QtGui.QTreeWidget):
     @property
     def ganttModel(self):
         return self._ganttModel
+        
+    def mouseMoveEvent(self, event):
+        print(event)
+        return QtGui.QTreeWidget.mouseMoveEvent(self,event)
 
     @ganttModel.setter
     def ganttModel(self, model):
@@ -312,7 +316,7 @@ class Widget_(QtGui.QTreeWidget):
         super(Widget_, self).paintEvent(e)
 
     def drawRow(self, painter, options, index):
-        """ガントチャート1行を描画する"""
+        """ガントchart1行を描画する"""
         super(Widget_, self).drawRow(painter, options, index)
         painter.save()
         #print(self.visualRect(index))
@@ -332,7 +336,7 @@ class Widget_(QtGui.QTreeWidget):
         painter.restore()
 
     def drawProgressLine(self, painter, item, itemRect):
-        # x <-- イナズマ線のx座標
+        # x <-- progressLineのx座標
         x = self.columnViewportPosition(COLUMN_CHART) + self.xposOfToday
         progressRate = item.progressRate
         #xposOfItem <-- 当該アイテムの進捗を示すｘ座標
@@ -377,11 +381,11 @@ class Widget_(QtGui.QTreeWidget):
         if task is None:
             return
         painter.fillRect(chartRect,
-            self.brush4aggregatedTask if item.isAggregated()
+            self.brush4progress if item.isAggregated()
             else self.brush4chartFill)
         painter.setPen(self.pen4chartBoundary)
         painter.drawRect(chartRect)
-        #--進捗率の表示--
+        #--progressの表示--
         if item.pv > 0:
             progressRect = QRect(
                 chartRect.left(),
@@ -398,7 +402,7 @@ class Widget_(QtGui.QTreeWidget):
                     itemRect.top(), itemRect.bottom(), self.pen4chartBoundary)
 
     def getChartScrollBar(self):
-        """チャート部用のスクロールバーを取得する"""
+        """chart部用のスクロールバーを取得する"""
         return self._csb
 
     def setDayWidth(self, value):
@@ -436,7 +440,7 @@ class GanttWidget(Widget_):
         self.itemExpanded.connect(self.taskExpanded)
 
     #-----------------------------------------------------------------------
-    # その他
+    # other
     #-----------------------------------------------------------------------
     @property
     def path(self):
@@ -504,7 +508,7 @@ class GanttWidget(Widget_):
     #   アクション
     #---------------------------------------------------------------------------
     def insert(self, action):
-        """カレントアイテムの次に新規タスクを挿入する"""
+        """カレントアイテムの次に新規insertする"""
         self.insertAfter(None, TreeWidgetItem(Task.defaultTask()))
 
     def remove(self, action):
@@ -565,12 +569,12 @@ class GanttWidget(Widget_):
         if modelIndex.row() <= 0:
             #兄アイテムがいない場合は処理を行わない
             return
-        #年の近い兄アイテムを探しておく
+        #Jahrの近い兄アイテムを探しておく
         sibling = self.itemFromIndex(modelIndex.sibling(modelIndex.row()-1, 0))
         #親アイテムから離脱する
         parentTask.children.remove(ci.task)
         parent.removeChild(ci)
-        #年の近い兄アイテムの末子になる
+        #Jahrの近い兄アイテムの末子になる
         sibling.addChild(ci)
         sibling.task.children.append(ci.task)
         self._sync_expand_collapse([ci])
@@ -578,7 +582,7 @@ class GanttWidget(Widget_):
         self.setCurrentItem(ci)
 
     def up(self, action):
-        """同一レベル内で一つ上に移動する"""
+        """同一レベル内でup"""
         (ci, index, parent, parentTask) = self._get_item_info()
         if ci is None:
             return
@@ -590,7 +594,7 @@ class GanttWidget(Widget_):
         self._move(ci, newIndex, parent, parentTask)
 
     def down(self, action):
-        """同一レベル内で一つ下に移動する"""
+        """同一レベル内でdown"""
         (ci, index, parent, parentTask) = self._get_item_info()
         if ci is None:
             return
@@ -613,30 +617,30 @@ class GanttWidget(Widget_):
         self.setCurrentItem(ci)
 
     def open(self, action):
-        """ファイルを開く"""
+        """Fileを開く"""
         fileName = QFileDialog.getOpenFileName(self,
-                        'ファイルを開く', self.workingDirectory)
+                        'Fileを開く', self.workingDirectory)
         print("load %s" % fileName)
         if len(fileName) <= 0:
             return
         self.load(fileName)
 
     def openServer(self, action):
-        """ファイルを開く"""
+        """Fileを開く"""
         print(settings.misc.server_url)
         self.load(settings.misc.server_url)
 
     def save(self, action):
-        """ファイルを保存する"""
+        """Fileを保存する"""
         if self._currentFileName is None:
             self.saveAs(action)
         else:
             self.saveFile(self._currentFileName)
 
     def saveAs(self, action):
-        """ファイル名を指定して保存する"""
+        """File名を指定して保存する"""
         fileName = QFileDialog.getSaveFileName(self,
-                        'ファイルを保存する', self.workingDirectory)
+                        'Fileを保存する', self.workingDirectory)
         print(fileName)
         if len(fileName) <= 0:
             return

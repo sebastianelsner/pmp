@@ -19,7 +19,7 @@ class Settings(Namespace):
         ganttWidget.pen4chartBoundary = QPen(self.color.boundary)
         ganttWidget.brush4chartFill = QBrush(self.color.chart)
         ganttWidget.brush4chartFillProgress = QBrush(self.color.progress)
-        ganttWidget.brush4aggregatedTask = QBrush(self.color.aggregatedTask)
+        ganttWidget.brush4progress = QBrush(self.color.progress)
         ganttWidget.dateOfProgressLine = self.misc.DATE_OF_PROGRESS_LINE
         self._columnResize(ganttWidget, COLUMN_NAME)
         self._columnResize(ganttWidget, COLUMN_START)
@@ -82,7 +82,7 @@ APPLICATION_NAME = "PMP(Poor Man's ms-Projcect)"
 #-------------------------------------------------------------------------------
 #データ部(画面左側)の表示諸元
 #-------------------------------------------------------------------------------
-HEADER_LABELS = ["項目名","開始日","終了日","担当者", "PV", "EV", ""]
+HEADER_LABELS = ["Artikelname","Startdatum","Schlussdatum","Verantwortliche", "PV", "EV", ""]
 
 COLUMN_NAME     = 0
 COLUMN_START    = 1
@@ -138,32 +138,32 @@ CALENDAR_LEFT_MARGIN = 0 #未使用。一律センタリング
 
 
 #-------------------------------------------------------------------------------
-#チャート部(画面右下)の表示諸元
+#chart部(画面右下)の表示諸元
 #-------------------------------------------------------------------------------
 
-#ガントチャートの行高さ
+#ガントchartの行高さ
 ROW_HEIGHT = 20
 
-#ガントチャートの線1本の高さ(行高さではない)
+#ガントchartの線1本の高さ(行高さではない)
 CHART_HEIGHT = 10
 
-#ガントチャート内の進捗率の線1本の高さ
+#ガントchart内のprogressの線1本の高さ
 PROGRESST_HEIGHT = 6
 
-CHART_BOUNDARY_COLOR    = (128,128,128,128) #チャート枠線色
-CHART_COLOR             = ( 64,128,128,128) #チャート塗潰し色
-PROGRESS_COLOR          = (160, 64, 64,255) #チャート内の進捗率塗潰し色
-AGGREGATED_TASK_COLOR   = ( 64,128,255,128) #チャート塗潰し色
-PROGRESS_LINE_COLOR     = (255,  0,  0,255) #イナズマ線色
+CHART_BOUNDARY_COLOR    = (128,128,128,128) #chartframe色
+CHART_COLOR             = ( 64,128,128,128) #chart塗潰し色
+PROGRESS_COLOR          = (160, 64, 64,255) #chart内のprogress塗潰し色
+AGGREGATED_TASK_COLOR   = ( 64,128,255,128) #chart塗潰し色
+PROGRESS_LINE_COLOR     = (255,  0,  0,255) #progressLine色
 
 #-------------------------------------------------------------------------------
-#表示色
+#Leuchtfarbe
 #-------------------------------------------------------------------------------
-settings.color.boundary       = QColor(128,128,128,128) #チャート枠線色
-settings.color.chart          = QColor( 64,128,128,128) #チャート塗潰し色
-settings.color.progress       = QColor(160, 64, 64,255) #チャート内の進捗率塗潰し色
-settings.color.aggregatedTask = QColor( 64,128,255,128) #チャート塗潰し色
-settings.color.progressLine   = QColor(255,  0,  0,255) #イナズマ線色
+settings.color.boundary       = QColor(128,128,128,128) #chartframe色
+settings.color.chart          = QColor( 64,128,128,128) #chart塗潰し色
+settings.color.progress       = QColor(160, 64, 64,255) #chart内のprogress塗潰し色
+settings.color.progress = QColor( 64,128,255,128) #chart塗潰し色
+settings.color.progressLine   = QColor(255,  0,  0,255) #progressLine色
 
 #-------------------------------------------------------------------------------
 #列:幅、表示/非表示
@@ -184,15 +184,15 @@ settings.column.chart.visible   = True
 settings.column.chart.width     = 600
 
 #-------------------------------------------------------------------------------
-#印刷諸元
+#drucken諸元
 #-------------------------------------------------------------------------------
-settings.print.HORIZONTAL_PAGE_COUNT    = 1     #横のページ数
-settings.print.ROWS_PER_PAGE            = 70    #1ページあたりの行数
-settings.print.HEADER_HEIGHT_RATIO      = 0.10  #ヘッダ高さの割合(=ヘッダ高さ/ページ高さ)
-settings.print.HEADER_WIDTH_RATIO       = 0.25  #ヘッダ幅の割合(=ヘッダ幅/ページ高さ)
+settings.print.HORIZONTAL_PAGE_COUNT    = 1     #horizontalpagecount
+settings.print.ROWS_PER_PAGE            = 70    #rowsperpage
+settings.print.HEADER_HEIGHT_RATIO      = 0.10  #headerheightratio(=ヘッダ高さ/ページ高さ)
+settings.print.HEADER_WIDTH_RATIO       = 0.25  #headerwidthratio(=ヘッダ幅/ページ高さ)
 
 #-------------------------------------------------------------------------------
-#その他の諸元
+#otherの諸元
 #-------------------------------------------------------------------------------
 settings.misc.DATE_OF_PROGRESS_LINE = date.today()
 settings.server.url = ''
@@ -200,38 +200,38 @@ settings.server.userid = ''
 settings.server.password = ''
 
 #-------------------------------------------------------------------------------
-#オプションダイアログ表示
+#Optionenダイアログ表示
 #-------------------------------------------------------------------------------
 dlgSpecs = [
-    ['表示色',
-        _P('枠線', QColor, 'color.boundary', QColor(128,128,128,128)),
-        _P('チャート', QColor, 'color.chart', QColor( 64,128,128,128)),
-        _P('進捗率', QColor, 'color.progress', QColor(160, 64, 64,255)),
-        _P('集約タスク', QColor, 'color.aggregatedTask', QColor( 64,128,255,128)),
-        _P('イナズマ線', QColor, 'color.progressLine', QColor( 64,128,128,255)),
+    ['Leuchtfarbe',
+        _P('frame', QColor, 'color.boundary', QColor(128,128,128,128)),
+        _P('chart', QColor, 'color.chart', QColor( 64,128,128,128)),
+        _P('progress', QColor, 'color.progress', QColor(160, 64, 64,255)),
+        _P('aggregatedTask', QColor, 'color.aggregatedTask', QColor( 64,128,255,128)),
+        _P('progressLine', QColor, 'color.progressLine', QColor( 64,128,128,255)),
     ],
-    ['印刷',
-        _P('ヘッダ幅の割合', float, 'print.HEADER_WIDTH_RATIO', 0.25),
-        _P('ヘッダ高さの割合', float, 'print.HEADER_HEIGHT_RATIO', 0.10),
-        _P('1ページあたりの行数', int, 'print.ROWS_PER_PAGE', 70),
-        _P('横のページ数', int, 'print.HORIZONTAL_PAGE_COUNT', 1),
+    ['drucken',
+        _P('headerwidthratio', float, 'print.HEADER_WIDTH_RATIO', 0.25),
+        _P('headerheightratio', float, 'print.HEADER_HEIGHT_RATIO', 0.10),
+        _P('rowsperpage', int, 'print.ROWS_PER_PAGE', 70),
+        _P('horizontalpagecount', int, 'print.HORIZONTAL_PAGE_COUNT', 1),
     ],
-    ['表示対象列',
-        #"開始日","終了日","担当者", "PV", "EV"
-        _P('項目名', bool, 'column.name.visible',True),
-        _P('開始日', bool, 'column.start.visible',True),
-        _P('終了日', bool, 'column.end.visible',  True),
-        _P('担当者', bool, 'column.pic.visible',  True),
+    ['columndisplay',
+        #"startvisible","endvisible","picvisible", "PV", "EV"
+        _P('namevisible', bool, 'column.name.visible',True),
+        _P('startvisible', bool, 'column.start.visible',True),
+        _P('endvisible', bool, 'column.end.visible',  True),
+        _P('picvisible', bool, 'column.pic.visible',  True),
         _P('PV',     bool, 'column.pv.visible',   True),
         _P('EV',     bool, 'column.ev.visible',   True),
-        _P('チャート',bool, 'column.chart.visible',   True),
+        _P('chart',bool, 'column.chart.visible',   True),
     ],
-    ['サーバ',
+    ['server',
         _P('URL', ｓｔｒ, 'server.url', ''),
-        _P('ユーザID', ｓｔｒ, 'server.userid', ''),
-        _P('パスワードユーザID', ｓｔｒ, 'server.password', ''),
+        _P('userid', ｓｔｒ, 'server.userid', ''),
+        _P('password', ｓｔｒ, 'server.password', ''),
     ],
-    ['その他',
-        _P('イナズマ線の日付', date, 'misc.DATE_OF_PROGRESS_LINE', date.today()),
+    ['other',
+        _P('progressLineDate', date, 'misc.DATE_OF_PROGRESS_LINE', date.today()),
     ],
 ]

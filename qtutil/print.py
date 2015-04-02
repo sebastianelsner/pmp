@@ -10,11 +10,11 @@ class PrintHandler(object):
         return QtGui.QPrinter()
 
     def pageCount(self):
-        """印刷ページ数の取得。派生クラスでオーバライド"""
+        """druckenページ数の取得。派生クラスでオーバライド"""
         return 3
 
     def print(self, printer):
-        """印刷用の描画処理"""
+        """drucken用の描画処理"""
         def within(fromPage, toPage, currentPage):
             if fromPage == 0 and toPage == 0:
                 return True
@@ -39,7 +39,7 @@ class PrintHandler(object):
         painter.end()
 
     def preparePrint(self, printer):
-        """印刷の前準備。派生クラスでオーバライド"""
+        """druckenの前準備。派生クラスでオーバライド"""
         pass
 
     def pageSetting(self):
@@ -48,7 +48,7 @@ class PrintHandler(object):
         dialog.exec()
 
     def printPage(self, painter, pageNo, pageCount):
-        """印刷用のページ描画処理。派生クラスでオーバライド"""
+        """drucken用のページ描画処理。派生クラスでオーバライド"""
         painter.save()
         rect = painter.viewport()
         side = min(rect.width(), rect.height())

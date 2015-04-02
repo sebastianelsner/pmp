@@ -9,7 +9,7 @@ class ProjectInfoDialog(QtGui.QDialog):
     def __init__(self, appName, parent):
         super(ProjectInfoDialog, self).__init__(parent)
         self.mainWindow = parent
-        self.setWindowTitle(appName+":プロジェクト情報の設定")
+        self.setWindowTitle(appName)
         self.buttonOk = QtGui.QPushButton("buttonOk", self)
         self.buttonOk.setText(self.tr("&OK"))
         self.buttonOk.setAutoDefault(1)
@@ -17,7 +17,7 @@ class ProjectInfoDialog(QtGui.QDialog):
         self.buttonCancel = QtGui.QPushButton("buttonCancel", self)
         self.buttonCancel.setText(self.tr("&Cancel"))
         self.buttonCancel.setAutoDefault(1)
-        self.buttonAdjustDate = QtGui.QPushButton("チャートから日付をセットする")
+        self.buttonAdjustDate = QtGui.QPushButton("chartから日付をセットする")
         model =self.mainWindow.ganttWidget.ganttModel
         self.projectName = QtGui.QLineEdit(model.name)
         self.startDate = QtGui.QDateEdit(model.start)
@@ -26,13 +26,13 @@ class ProjectInfoDialog(QtGui.QDialog):
         main_layout = QtGui.QGridLayout()
         main_layout.setSpacing(8)
         main_layout.setMargin(16)
-        main_layout.addWidget(QLabel("プロジェクト名"), 1, 0)
+        main_layout.addWidget(QLabel("Projektname"), 1, 0)
         main_layout.addWidget(self.projectName, 1, 1, 1, 3)
 
         #2行目
-        main_layout.addWidget(QLabel("開始日"), 2, 0)
+        main_layout.addWidget(QLabel("startvisible"), 2, 0)
         main_layout.addWidget(self.startDate, 2, 1)
-        main_layout.addWidget(QLabel("終了日"), 2, 2)
+        main_layout.addWidget(QLabel("endvisible"), 2, 2)
         main_layout.addWidget(self.endDate, 2, 3)
         #3行目
         main_layout.addWidget(self.buttonOk, 3, 0)

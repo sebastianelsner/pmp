@@ -46,7 +46,7 @@ class ItemDelegate(QtGui.QStyledItemDelegate):
 class PropertyTreeWidget(QtGui.QTreeWidget):
     def __init__(self, parent=None):
         super(PropertyTreeWidget, self).__init__(parent)
-        self.setHeaderLabels(['項目名', '値'])
+        self.setHeaderLabels(['namevisible', '値'])
         self.header().resizeSection(0, 200)
         self.header().resizeSection(1, 200)
         self.setItemDelegateForColumn(0, NoEditItemDelegate(self))

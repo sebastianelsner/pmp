@@ -11,16 +11,16 @@
       </tr>
     {% endfor %}
     </table>
-    <p>このURLは、クライアントプログラムのサーバURLに設定してください。</p>
-    <p>サーバURLは、[設定]-[オプション]メニューで、オプション設定ダイアログを開くか、
-    settings.iniをテキストエディタで開いて、直接編集してください。</p>
-    <p>サーバにアクセスできない場合、PROXY経由のアクセスになっている場合があります。</p>
-    <p>その場合、HTTP_PROXY等の環境変数を削除するか、環境変数NO_PROXYに除外対象のサーバ名、IPアドレスを設定してください。</p>
+    <p>このURLは、クライアントプログラムのserverURLにConfigしてください。</p>
+    <p>serverURLは、[Config]-[Optionen]メニューで、OptionenConfigダイアログを開くか、
+    settings.iniをテキストエディタで開いて、直接Editしてください。</p>
+    <p>serverにアクセスできない場合、PROXY経由のアクセスになっている場合があります。</p>
+    <p>その場合、HTTP_PROXY等の環境変数を削除するか、環境変数NO_PROXYに除外対象のserver名、IPアドレスをConfigしてください。</p>
     <pre>
     例）HTTP_PROXY=172.24.111.222:2000
-    　　　 <-- こういう設定があるとPROXY経由になってしまうので、
+    　　　 <-- こういうConfigがあるとPROXY経由になってしまうので、
         NO_PROXY=127.0.0.1, localhost, 172.24.160.99
-    　　　 <-- PROXY経由にしたくないものを設定します。
+    　　　 <-- PROXY経由にしたくないものをConfigします。
     </pre>
 
 {% endblock %}

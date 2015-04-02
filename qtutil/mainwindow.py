@@ -31,14 +31,14 @@ class MainWindow(QtGui.QMainWindow):
         """Actionオブジェクトを作成する。派生クラスでオーバライド"""
         self.actions = Namespace()
         self.actions.quit = createAction(self.quit, '終了', "Alt+F4")
-        self.actions.print = createAction(self.printAction, '印刷', "Ctrl+P")
-        self.actions.preview = createAction(self.printPreview, '印刷プレビュー')
-        self.actions.pageSettings = createAction(self.pageSettings, 'ページ設定')
+        self.actions.print = createAction(self.printAction, 'drucken', "Ctrl+P")
+        self.actions.preview = createAction(self.printPreview, 'druckenプレビュー')
+        self.actions.pageSettings = createAction(self.pageSettings, 'ページConfig')
         self.actions.aboutQt = createAction(self.aboutQt, 'Qtについて')
         self.actions.about = createAction(self.about, 'バージョン情報', "Alt+A")
 
     def print(self, printer):
-        """印刷用の描画処理。派生クラスでオーバライド"""
+        """drucken用の描画処理。派生クラスでオーバライド"""
         self.printhandler().print(printer)
 
     def not_implemented(self):

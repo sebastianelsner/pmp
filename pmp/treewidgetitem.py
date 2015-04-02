@@ -10,7 +10,7 @@ from PyQt4.QtCore import Qt, QModelIndex
 from .settings import *
 from qtutil import toQDate, to_datetime, tuple2brush
 
-_aggregatedTaskBrush = tuple2brush(AGGREGATED_TASK_COLOR)
+_progressBrush = tuple2brush(AGGREGATED_TASK_COLOR)
 
 class TreeWidgetItem(QtGui.QTreeWidgetItem):
     def __init__(self, task=None):
@@ -53,7 +53,7 @@ class TreeWidgetItem(QtGui.QTreeWidgetItem):
 
     def data(self, column, role):
         if self.isAggregated():
-            #集約タスクの属性は、子タスクの値から算出して表示する
+            #aggregatedTaskの属性は、子タスクの値から算出して表示する
             if role == Qt.DisplayRole:
                 if column == COLUMN_PV:
                     return sum(item.pv for item in self.childItems())
@@ -64,12 +64,12 @@ class TreeWidgetItem(QtGui.QTreeWidgetItem):
                 elif column == COLUMN_END:
                     return toQDate(self.task.maximumDate())
             elif role == Qt.ForegroundRole:
-                return _aggregatedTaskBrush
+                return _progressBrush
         value = super(TreeWidgetItem, self).data(column, role)
         if column == COLUMN_PIC:
             if role == Qt.DisplayRole:
                 if value is None:
-                    value = "(未定)"
+                    value = "TBD"
         return value
 
     def setData(self, column, role, value):

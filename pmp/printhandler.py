@@ -47,20 +47,20 @@ class MyPrintPreviewDialog(QtGui.QPrintPreviewDialog):
             self._refresh()
         widget = QtGui.QComboBox(self)
         for i in range(MINIMUM,100):
-            widget.addItem('1ページあたり%d行' % i)
+            widget.addItem('%d pro Seite' % i)
         widget.setCurrentIndex(settings.print.ROWS_PER_PAGE - MINIMUM)
         widget.currentIndexChanged.connect(_rowsPerPageChanged)
         return widget
 
     def _createOptionutton(self):
-        widget = QtGui.QButton('オプション')
+        widget = QtGui.QButton('Optionen')
         return widget
 
     def _createPageSettingAction(self):
         #action = QtGui.QAction(QtGui.QIcon(), self.tr("settings"), self)
-        action = QtGui.QAction("オプション", self)
+        action = QtGui.QAction("Optionen", self)
         action.setCheckable(True)
-        action.setToolTip("オプション設定")
+        action.setToolTip("OptionenConfig")
         action.toggled.connect(self._togglePageSettingDialog)
         return action
 
@@ -103,8 +103,8 @@ class GanttPrintHandler(PrintHandler):
         return len(self._pageInfo)
 
     def preparePrint(self, printer):
-        """印刷の前準備。派生クラスでオーバライド"""
-        #印刷用のWidgetを用意する
+        """druckenの前準備。派生クラスでオーバライド"""
+        #drucken用のWidgetを用意する
         self._widget = GanttWidget()
         self._widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self._widget.ganttModel = self.ganttWidget.ganttModel
@@ -192,11 +192,11 @@ class GanttPrintHandler(PrintHandler):
         rect1 = self.renderDataHeader(painter, bodyRect)
         #データ部本体
         self.renderDataBody(painter, bodyRect)
-        #チャート部ヘッダ
+        #chart部ヘッダ
         self.renderChartHeader(painter, bodyRect)
-        #チャート部本体
+        #chart部本体
         self.renderChartBody(painter, bodyRect)
-        #ページの枠線
+        #ページのframe
         painter.setPen(self._widget.pen4chartBoundary)
         log = self._pri.dev
         painter.drawRect(0,0,log.headerWidth,log.headerHeight)
@@ -228,7 +228,7 @@ class GanttPrintHandler(PrintHandler):
         painter.restore()
 
     def renderChartHeader(self, painter, bodyRect):
-        """チャート部ヘッダ"""
+        """chart部ヘッダ"""
         painter.save()
         painter.translate(self._pri.dev.headerWidth, 0)
         painter.scale(self._pri.scl.bodyWidth, self._pri.scl.headerHeight)
@@ -238,7 +238,7 @@ class GanttPrintHandler(PrintHandler):
         painter.restore()
 
     def renderChartBody(self, painter, bodyRect):
-        """チャート部本体"""
+        """chart部本体"""
         painter.save()
         painter.translate(self._pri.dev.headerWidth, self._pri.dev.headerHeight)
         painter.scale(self._pri.scl.bodyWidth, self._pri.scl.bodyHeight)
